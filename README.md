@@ -1,8 +1,28 @@
-# React + Vite
+# DevTinder
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+- created a Vite + React project
 
-Currently, two official plugins are available:
+- install tailwind css for vite
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+- set up the tailwind.config.js according to the documentation
+
+- install daisyUi component library for tailwind css(similar to angualr material)
+
+- create a new react component file NavBar.jsx
+
+- create the ract functionlity using keyword ---> rafec React Arrow Function Export Component.
+
+- import and define this component inside the app component.
+
+# Routing
+
+- enables navigation between different components (or "pages") in a single-page application (SPA). React Router provides tools like BrowserRouter, Routes, and Route for defining and managing routes.
+
+- install react router dom npm i react-router-dom
+
+-  we will use BrowserRouter to wrap your application and define routes using Routes and Route.
+
+    import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+
+
+
