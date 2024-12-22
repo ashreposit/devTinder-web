@@ -1,5 +1,7 @@
-import NavBar from "./NavBar"
 import { BrowserRouter as Router,Routes,Route } from "react-router-dom";
+import Body from "./body";
+import Login from "./Login";
+import Profile from "./Profile";
 
 
 function App() {
@@ -8,16 +10,14 @@ function App() {
     <>
     <Router basename="/">
       <Routes>
-        <Route path="/" element={<div>Home page</div>} />
-        <Route path="/login" element={<div>login page</div>} />
-        <Route path="/about" element={<div>About page</div>} />
-        <Route path="/logout" element={<div>logOut page</div>} />
+        {/* parent component */}
+        <Route path="/" element={<Body/>}> 
+          {/* child components */}
+          <Route path="/login" element={<Login/>} />
+          <Route path="/profile" element={<Profile/>} />
+        </Route>
       </Routes>
     </Router>
-    <NavBar />
-     <h1 className="text-3xl font-bold underline">
-      Hello world!
-     </h1>
     </>
   )
 }
