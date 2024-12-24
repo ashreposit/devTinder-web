@@ -25,10 +25,15 @@
     import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 
 
-Body :
+# Body :
 1. Navbar
 
 2. Profile ==> /profile
 3. login ==> /login
 4. feed ==> /feed
 5. connections ==> /connections
+
+# Axios:
+
+- install the axios library
+- await axios.post("http://localhost:4500/auth/login",{emailId,password},{withCredentials:true});
