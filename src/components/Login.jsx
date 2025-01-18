@@ -10,13 +10,13 @@ const Login = () => {
   const navigate  = useNavigate();//hook
   const [emailId,setEmailId] = useState("");
   const [password,setPassword] = useState("");
-  const dispatch = useDispatch();
+  const dispatch = useDispatch(); // to add data to store 
 
   const handleSignup = async ()=>{
     console.log("function called");
     try{
       let res = await axios.post(BASE_URL+"/auth/login",{emailId,password},{withCredentials:true});
-      dispatch(addUser(res.data));
+      dispatch(addUser(res.data)); //sending actions(data/state) to the user
       navigate("/");
     }
     catch(err){
