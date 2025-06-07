@@ -6,7 +6,6 @@ import { BASE_URL } from '../utils/constants';
 const NavBar = () => {
 
     const user = useSelector((store) => store.user);
-
     const navigate = useNavigate();
 
     const profilePage = ()=>{
@@ -16,7 +15,6 @@ const NavBar = () => {
     const logOut = async ()=>{
         console.log({INFO:'logout function called'});
         const logOut = await axios.post(`${BASE_URL}/auth/logout`,{},{withCredentials:true});
-        console.log(logOut);
         navigate('/');
     };
     return (
@@ -27,13 +25,13 @@ const NavBar = () => {
                 </div>
                 {user && (
                     <div className="flex-none gap-2">
-                        <div className='form-control'>welcome,{user.user.firstName}!</div>
+                        <div className='form-control'>welcome,{user?.user?.firstName ?? user?.userProfile?.firstName}!</div>
                         <div className="dropdown dropdown-end mx-7">
                             <div tabIndex={0} role="button" className="btn btn-ghost btn-circle avatar">
                                 <div className="w-10 rounded-full">
                                     <img
                                         alt="Tailwind CSS Navbar component"
-                                        src={user.user.photoUrl} />
+                                        src={user?.user?.photoUrl ?? user?.userProfile?.photoUrl} />
                                 </div>
                             </div>
                             <ul
