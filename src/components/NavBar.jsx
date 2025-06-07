@@ -1,10 +1,24 @@
-import React from 'react'
+import axios from 'axios';
 import { useSelector } from 'react-redux'
+import { useNavigate } from 'react-router-dom';
+import { BASE_URL } from '../utils/constants';
 
 const NavBar = () => {
 
     const user = useSelector((store) => store.user);
-    console.log({ user: user });
+
+    const navigate = useNavigate();
+
+    const profilePage = ()=>{
+        navigate('/app/profile')
+    };
+
+    const logOut = async ()=>{
+        console.log({INFO:'logout function called'});
+        const logOut = await axios.post(`${BASE_URL}/auth/logout`,{},{withCredentials:true});
+        console.log(logOut);
+        navigate('/');
+    };
     return (
         <div>
             <div className="navbar bg-base-300">
@@ -26,13 +40,13 @@ const NavBar = () => {
                                 tabIndex={0}
                                 className="menu menu-sm dropdown-content bg-base-100 rounded-box z-[1] mt-3 w-52 p-2 shadow">
                                 <li>
-                                    <a className="justify-between">
+                                    <a className="justify-between" onClick={profilePage}>
                                         Profile
-                                        <span className="badge">New</span>
+                                        {/* <span className="badge">New</span> */}
                                     </a>
                                 </li>
                                 <li><a>Settings</a></li>
-                                <li><a>Logout</a></li>
+                                <li><a onClick={logOut}>Logout</a></li>
                             </ul>
                         </div>
                     </div>

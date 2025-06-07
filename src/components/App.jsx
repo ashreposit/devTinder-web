@@ -13,12 +13,13 @@ function App() {
     <Provider store={store}>
     <Router basename="/">
       <Routes>
-        {/* parent component */}
-        <Route path="/" element={<Body/>}> 
+        {/* parent component route for login */}
+        <Route path="/" element={<Login/>} />
+        {/* Parent component route for body */}
+        <Route path="/app" element={<Body/>}> 
           {/* child components */}
-          <Route path="/" element={<Feed/>} />
-          <Route path="/login" element={<Login/>} />
-          <Route path="/profile" element={<Profile/>} />
+          <Route path="feed" element={<Feed/>} />
+          <Route path="profile" element={<Profile/>} />
         </Route>
       </Routes>
     </Router>
