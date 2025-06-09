@@ -1,19 +1,27 @@
 import axios from 'axios';
-import { useSelector } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 import { Link, useNavigate } from 'react-router-dom';
 import { BASE_URL } from '../utils/constants';
 import { useState } from 'react';
+import { removeUser } from '../utils/userSlice';
 
 const NavBar = () => {
 
     const user = useSelector((store) => store.user);
     const navigate = useNavigate();
     const [showLogoutDialog,setShowLogoutDialog] = useState(false);
+    const dispatch = useDispatch();
 
-    const logOut = async ()=>{
-        console.log({INFO:'logout function called'});
-        await axios.post(`${BASE_URL}/auth/logout`,{},{withCredentials:true});
-        setShowLogoutDialog(true);
+    const logOut = async () => {
+        try {
+            let res = await axios.post(`${BASE_URL}/auth/logout`, {}, { withCredentials: true });
+            if(res.status === 200) {
+                dispatch(removeUser());
+                setShowLogoutDialog(true);
+            }
+        } catch (error) {
+            console.log(error);
+        }
     };
 
     const closeDialog = ()=>{
