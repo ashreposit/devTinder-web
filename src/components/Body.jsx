@@ -3,7 +3,7 @@ import { Outlet, useNavigate } from 'react-router-dom';
 import Footer from './Footer';
 import axios from 'axios';
 import { BASE_URL } from '../utils/constants';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { addUser } from '../utils/userSlice';
 import { useEffect } from 'react';
 
@@ -11,6 +11,7 @@ const Body = () => {
 
   const dispatch = useDispatch(); // to add data to store 
   const navigate = useNavigate();
+  const userData = useSelector((store)=> store.user);
 
   // getting the user details even while reloading the application.
   const getLoggedInUser = async () => {
@@ -25,10 +26,12 @@ const Body = () => {
     }
   };
 
-  // getLoggedInUser function is called when the component loads initially.
-  useEffect(()=>{
-    getLoggedInUser();
-  },[]);
+  // getLoggedInUser function is called when the component loads initially only if no use data is fecthed.
+  useEffect(() => {
+    if (!userData?.user) {
+      getLoggedInUser();
+    }
+  }, []);
 
   return (
     <div className='min-h-screen flex flex-col'>
