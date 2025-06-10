@@ -11,6 +11,8 @@ const Login = () => {
   const [emailId,setEmailId] = useState("");
   const [password,setPassword] = useState("");
   const dispatch = useDispatch(); // to add data to store 
+  let [error,setError] = useState("");
+  const [ showPassword,setShowPassword] = useState(false);
 
   const handleSignup = async ()=>{
     console.log("function called");
@@ -20,7 +22,8 @@ const Login = () => {
       navigate("/app/feed");
     }
     catch(err){
-      console.log(err);
+      setError(err.response.data.Error);
+      console.log({Error:err.response.data.Error});
     }
   };
 
@@ -72,10 +75,24 @@ const Login = () => {
                     d="M14 6a4 4 0 0 1-4.899 3.899l-1.955 1.955a.5.5 0 0 1-.353.146H5v1.5a.5.5 0 0 1-.5.5h-2a.5.5 0 0 1-.5-.5v-2.293a.5.5 0 0 1 .146-.353l3.955-3.955A4 4 0 1 1 14 6Zm-4-2a.75.75 0 0 0 0 1.5.5.5 0 0 1 .5.5.75.75 0 0 0 1.5 0 2 2 0 0 0-2-2Z"
                     clipRule="evenodd" />
                 </svg>
-                <input type="password" className="grow" defaultValue="" placeholder="password" value={password} onChange={(e)=>setPassword(e.target.value)}/>
+                <input type={showPassword ? "text" : "password"} className="grow" defaultValue="" placeholder="password" value={password} onChange={(e)=>setPassword(e.target.value)}/>
+                <button type='button' onClick={()=>setShowPassword(!showPassword)} className="focus:outline-none">
+                   {showPassword ? (
+                    // Eye-Off Icon
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" className="h-5 w-5 text-gray-500">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13.875 18.825A10.05 10.05 0 0112 19c-5.523 0-10-4.477-10-10a9.963 9.963 0 011.663-5.505M15 12a3 3 0 11-6 0 3 3 0 016 0zm-9.615 6.615L3 21m0 0l3.585-3.585m-.585 3.585L3 17.415" />
+                    </svg>
+                  ) : (
+                    // Eye Icon
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" className="h-5 w-5 text-gray-500">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 12a3 3 0 11-6 0 3 3 0 016 0zm7.5 0a9.994 9.994 0 00-19 0 9.994 9.994 0 0019 0z" />
+                    </svg>
+                  )}
+                </button>
               </label>
             </div>
           </div>
+          <p className='text-red-500'>{error}</p>
           <div className="card-actions justify-center mt-5">
             <button className="btn btn-success rounded-full w-52" onClick={handleSignup}>Login</button>
           </div>
