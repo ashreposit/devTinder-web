@@ -1,22 +1,40 @@
-import React, { useEffect } from 'react'
+import React, { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux';
-import { addRequest } from '../utils/requestSlice';
+import { addRequest, removeRequest } from '../utils/requestSlice';
 import axios from 'axios';
 import { BASE_URL } from '../utils/constants';
+import { useNavigate } from 'react-router-dom';
 
 const Request = () => {
 
     const dispatch = useDispatch();
     const requests = useSelector((store) => store.request);
+    const navigate = useNavigate();
+    const [showRequestUpdated, setShowRequestUpdated] = useState(false);
 
     const getRequests = async () => {
         try {
             let request = await axios.get(`${BASE_URL}/user/request/received`, { withCredentials: true });
             dispatch(addRequest(request.data));
         } catch (error) {
-            console.log(error);
+            console.log(error.message);
         }
     };
+
+    const reviewRequest = async (status, requestId) => {
+        try {
+            let review = await axios.post(`${BASE_URL}/request/review/${status}/${requestId}`, {}, { withCredentials: true });
+            if (review?.data?.connection?._id) {
+                setShowRequestUpdated(true);
+            }
+            setTimeout(() => {
+                setShowRequestUpdated(false);
+                navigate('/app/connections');
+            }, 2000);
+        } catch (error) {
+            console.log(error.message);
+        }
+    }
 
     useEffect(() => {
         getRequests();
@@ -44,13 +62,22 @@ const Request = () => {
                             <p>{conn.fromUserId.about}</p>
                         </div>
                         <div>
-                            <button className='btn btn-primary mx-2'>Accept</button>
-                            <button className='btn btn-secondary mx-2'>Ignore</button>
+                            <button className='btn btn-primary mx-2' onClick={() => reviewRequest("accepted", conn?._id)}>Accept</button>
+                            <button className='btn btn-secondary mx-2' onClick={() => reviewRequest("rejected", conn?._id)}>Ignore</button>
                         </div>
 
                     </div>
                 )
             })}
+
+            {showRequestUpdated && (
+                <div className="toast toast-top toast-center">
+                    <div className="alert alert-success">
+                        <span>Request updated successfully.</span>
+                    </div>
+                </div>
+            )
+            }
         </div>
     )
 }

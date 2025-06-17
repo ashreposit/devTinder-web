@@ -11,9 +11,9 @@ const Connections = () => {
 
   const connections = async()=>{ 
     try {
-      console.log({info:"connections called"});
+
       let res = await axios.get(`${BASE_URL}/user/connections`,{withCredentials:true});
-      console.log({res:res.data});
+
       if(res.status === 200){
         dispatch(addConnection(res.data));
       }
