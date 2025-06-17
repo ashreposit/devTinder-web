@@ -6,6 +6,7 @@ import Feed from "./Feed";
 import { store } from '../utils/appStore'
 import { Provider } from 'react-redux'
 import Connections from "./connections";
+import Request from "./request";
 
 function App() {
 

@@ -12,7 +12,7 @@ const Connections = () => {
   const connections = async()=>{ 
     try {
       console.log({info:"connections called"});
-      let res = await axios.get(`${BASE_URL}/user/connections/received`,{withCredentials:true});
+      let res = await axios.get(`${BASE_URL}/user/connections`,{withCredentials:true});
       console.log({res:res.data});
       if(res.status === 200){
         dispatch(addConnection(res.data));
@@ -26,13 +26,13 @@ const Connections = () => {
     connections();
   },[]);
 
-  if(connection?.connectionRequests.length === 0) return <h1 className='flex justify-center my-10 text-bold text-3xl'>No Connection Found</h1>
+  if(connection?.connectionRequest.length === 0) return <h1 className='flex justify-center my-10 text-bold text-3xl'>No Connection Found</h1>
 
   return (
     <div className='text-center my-10'>
       <h1 className='text-bold text-5xl'>Connections</h1>
 
-      {connection?.connectionRequests.map((conn, index) => {
+      {connection?.connectionRequest.map((conn, index) => {
         return (
         <div key={conn.id || index} className=" flex m-4 p-4 rounded bg-base-300 w-1/2 mx-auto">
           <div>
