@@ -29,7 +29,7 @@ const Feed = () => {
     getFeed();
   },[]);
   return ( feed && (
-    <div className='flex justify-center my-10'>
+    <div className='flex justify-center my-10 gap-10 p-10'>
       {feed.feed.map((user,index)=>(
         <UserCard key={index || user._id} user={user}/>
       ))}
