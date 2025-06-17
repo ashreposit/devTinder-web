@@ -33,6 +33,7 @@ const NavBar = () => {
         <div>
             <div className="navbar bg-base-300">
                 <div className="flex-1">
+                    {/* instead of a tag use this for React Router component for client-side navigation */}
                     <Link to="/app/feed" className="btn btn-ghost text-xl">DevTinder</Link>
                 </div>
                 {user && (
@@ -80,6 +81,6 @@ const NavBar = () => {
     )
 }
 
-// Link is from react router dom which is similar to a tag . Here to use Link to="redirect route" which when clicked is redirected to the given route.
+// Link is from react router dom which is similar to 'a' tag . Here to use Link to="redirect route" which when clicked is redirected to the given route.
 
 export default NavBar
