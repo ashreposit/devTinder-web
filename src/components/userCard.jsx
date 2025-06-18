@@ -28,10 +28,12 @@ const userCard = ({user}) => {
         <h2 className="card-title">{user?.firstName + " " + user?.lastName}</h2>
         {user?.age && user?.gender && (<p>{user?.age + " " + user?.gender}</p>)}
         <p>{user?.about}</p>
-        {user?._id && loggedInUser?._id && user._id !== loggedInUser._id  && (<div className="card-actions justify-center my-4">
+        {user?._id && loggedInUser?.user?._id && user._id !== loggedInUser?.user?._id  && (
+          <div className="card-actions justify-center my-4">
           <button className="btn btn-secondary" onClick={()=>{sendRequestReview("ignored",user?._id)}}>Ignore</button>
           <button className="btn btn-primary" onClick={()=>{sendRequestReview("interested",user?._id)}}>Interested</button>
-        </div>)}
+        </div>
+      )}
       </div>
     </div>
   )
