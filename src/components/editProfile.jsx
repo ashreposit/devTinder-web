@@ -8,9 +8,10 @@ import { useNavigate } from "react-router-dom";
 
 const EditProfile = (user) => {
   
+  const [_id,setId] = useState(user?.user?._id);
   const [firstName,setFirstName] = useState(user?.user?.firstName);
   const [lastName,setLastName] = useState(user?.user?.lastName);
-  const [age,setAge] = useState(user?.user?.name);
+  const [age,setAge] = useState(user?.user?.age);
   const [gender,setGender] = useState(user?.user?.gender);
   const [about,setAbout] = useState(user?.user?.about);
   const [photoUrl,setPhotoUrl] = useState(user?.user?.photoUrl);
@@ -91,7 +92,7 @@ const EditProfile = (user) => {
         </div>
       </div>
       <div>
-        <UserCard user={{ firstName, lastName, photoUrl, age, gender, about }} />
+        <UserCard user={{ _id,firstName, lastName, photoUrl, age, gender, about }} />
       </div>
 
       {showProfileUpdateDialog && (
