@@ -82,4 +82,4 @@ const Request = () => {
     )
 }
 
-export default Request
+export default Request;
