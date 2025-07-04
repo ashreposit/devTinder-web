@@ -58,6 +58,7 @@ const NavBar = () => {
                                 </li>
                                 <li><Link to="/app/connections">Connections</Link></li>
                                 <li><Link to="/app/requests">Requests</Link></li>
+                                <li><Link to="/app/premium">Premium</Link></li>
                                 <li><a onClick={logOut}>Logout</a></li>
                             </ul>
                         </div>
