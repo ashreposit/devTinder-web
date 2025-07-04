@@ -1,8 +1,23 @@
 import axios from 'axios';
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import { BASE_URL } from '../utils/constants';
 
 const Premium = () => {
+
+    const [isPremium, setIsPremium] = useState(false);
+
+    const verifyPremiumUser = async () => {
+        try {
+            const premium = await axios.get(`${BASE_URL}/payment/verify/premium`, { withCredentials: truth });
+            if (premium.data.isPremium) setIsPremium(true);
+        } catch (error) {
+            console.log(error);
+        }
+    };
+
+    useEffect(() => {
+        verifyPremiumUser();
+    }, []);
 
     const handleBuyClick = async (type) => {
         try {
@@ -12,8 +27,8 @@ const Premium = () => {
 
             const options = {
                 key: order?.keyId,
-                amount:order?.amount,
-                currency:order?.currency,
+                amount: order?.amount,
+                currency: order?.currency,
                 name: "Dev Tinder",
                 description: "Connect to other developers",
                 order_id: order?.orderId,
@@ -36,33 +51,36 @@ const Premium = () => {
         }
     };
 
-    return (
-        <div className='m-10'>
-            <div className="flex w-full">
-                <div className="card bg-base-300 rounded-box grid h-80 grow place-items-center">
-                    <h1 className='font-bold text-3xl'>Silver Membership</h1>
-                    <ul>
-                        <li> - Chat with other people.</li>
-                        <li> - 100 connection Requests per day.</li>
-                        <li> - Blue tick</li>
-                        <li> - 3 months</li>
-                    </ul>
-                    <button onClick={() => handleBuyClick("Silver")} className='btn btn-secondary'>Buy Silver</button>
-                </div>
-                <div className="divider divider-horizontal">OR</div>
-                <div className="card bg-base-300 rounded-box grid h-80 grow place-items-center">
-                    <h1 className='font-bold text-3xl'>Gold Membership</h1>
-                    <ul>
-                        <li> - Chat with other people.</li>
-                        <li> - Infinite connection Requests per day.</li>
-                        <li> - Blue tick</li>
-                        <li> - 6 months</li>
-                    </ul>
-                    <button onClick={() => handleBuyClick("Gold")} className='btn btn-primary'>Buy Gold</button>
+    return isPremium ?
+        <div className="flex items-center justify-center h-screen text-3xl font-bold">
+            You're already a premium user
+        </div> : (
+            <div className='m-10'>
+                <div className="flex w-full">
+                    <div className="card bg-base-300 rounded-box grid h-80 grow place-items-center">
+                        <h1 className='font-bold text-3xl'>Silver Membership</h1>
+                        <ul>
+                            <li> - Chat with other people.</li>
+                            <li> - 100 connection Requests per day.</li>
+                            <li> - Blue tick</li>
+                            <li> - 3 months</li>
+                        </ul>
+                        <button onClick={() => handleBuyClick("Silver")} className='btn btn-secondary'>Buy Silver</button>
+                    </div>
+                    <div className="divider divider-horizontal">OR</div>
+                    <div className="card bg-base-300 rounded-box grid h-80 grow place-items-center">
+                        <h1 className='font-bold text-3xl'>Gold Membership</h1>
+                        <ul>
+                            <li> - Chat with other people.</li>
+                            <li> - Infinite connection Requests per day.</li>
+                            <li> - Blue tick</li>
+                            <li> - 6 months</li>
+                        </ul>
+                        <button onClick={() => handleBuyClick("Gold")} className='btn btn-primary'>Buy Gold</button>
+                    </div>
                 </div>
             </div>
-        </div>
-    )
+        );
 }
 
 export default Premium
