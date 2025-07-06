@@ -8,6 +8,7 @@ import { Provider } from 'react-redux'
 import Connections from "./connections";
 import Request from "./Request";
 import Premium from "./Premium";
+import Chat from "./Chat";
 
 function App() {
 
@@ -26,6 +27,7 @@ function App() {
           <Route path="connections" element={<Connections/>} />
           <Route path="requests" element={<Request/>} />
           <Route path="premium" element={<Premium/>} />
+          <Route path="chat/:toUserId" element={<Chat/>} />
         </Route>
       </Routes>
     </Router>

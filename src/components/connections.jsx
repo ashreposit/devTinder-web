@@ -3,6 +3,7 @@ import { useEffect, useState } from 'react'
 import { BASE_URL } from '../utils/constants'
 import { useDispatch, useSelector } from 'react-redux';
 import { addConnection, removeConnection } from '../utils/connectionSlice';
+import { Link } from 'react-router-dom';
 
 const Connections = () => {
 
@@ -16,13 +17,13 @@ const Connections = () => {
       let res = await axios.get(`${BASE_URL}/user/connections`,{withCredentials:true});
       console.log({res:res.data});
       if(res.status === 200){
-        dispatch(addConnection(res.data.connectionRequest));
+        dispatch(addConnection(res?.data?.connectionRequest));
       }
     } catch (error) {
       console.log(error);
     }
-  }
-  
+  };
+
     const deleteConnection = async(connectionId)=>{
     try {
       let deleteResponse = await axios.delete(`${BASE_URL}/user/connections/${connectionId}`,{withCredentials:true});
@@ -50,7 +51,7 @@ const Connections = () => {
 
       {connection?.map((conn, index) => {
         return (
-        <div key={conn.id || index} className=" flex justify-around m-4 p-4 rounded bg-base-300 w-1/2 mx-auto">
+        <div key={conn._id || index} className=" flex justify-around m-4 p-4 rounded bg-base-300 w-1/2 mx-auto">
           <div>
             <img
               src={conn.photoUrl}
@@ -64,6 +65,9 @@ const Connections = () => {
             <p>{conn.about}</p>
           </div>
           <div className="card-actions justify-center my-4">
+              <Link to={`/app/chat/${conn?._id}`}>
+                <button className="btn btn-primary">Chat</button>
+              </Link>
               <button className="btn btn-secondary" onClick={()=>deleteConnection(conn?.connectionId)}>Delete</button>
           </div>
         </div>
